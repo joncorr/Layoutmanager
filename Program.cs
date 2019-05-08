@@ -107,7 +107,7 @@ namespace MyLayoutManager
             /*
             todo: args to support
             -loadlayout                                
-            -add support for multiple monitors
+            -add support for multiple monitors (https://docs.microsoft.com/en-us/windows/desktop/gdi/positioning-objects-on-multiple-display-monitors)
             
              */
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
