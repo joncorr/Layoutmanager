@@ -30,7 +30,7 @@ namespace MyLayoutManager
                 App openWindow = new App();                           
                 
                 openWindow.ShortWindowTitle = GetWindowTitle(handle); 
-                openWindow.Placement = User32.GetWindowPlacement(handle); 
+                openWindow.WindowPlacement = User32.GetWindowPlacement(handle); 
 
                 openWindowHandleMap.Add(handle, openWindow);       
             }   
@@ -94,22 +94,29 @@ namespace MyLayoutManager
 
         static void LoadWinowLayout(string layoutName)
         {
-            /*todo:
-            1 - get the filename for the window proc 
-            2 - get the arguments for the window proc, if possible, otherwise just have a field in the json config file for args
-            3 - start apps and place windows according to original placements*/
-            // User32.SetWindowPlacement(handle, placement); 
-            throw new NotImplementedException(); 
+            List<App> loadTheseApps = JsonConvert.DeserializeObject<List<App>>(File.ReadAllText(layoutName));
+
+            foreach(App app in loadTheseApps)
+            {
+                Process appProcess = new Process(); 
+                appProcess.StartInfo.FileName = app.FileName; 
+                appProcess.StartInfo.Arguments = app.LaunchArgs; 
+                appProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal; 
+                appProcess.Start(); 
+                if(!appProcess.HasExited) appProcess.WaitForInputIdle(); 
+                System.Threading.Thread.Sleep(100);                 
+                
+                //can't get the mainwindowhandle from p, for whatever reason
+                Process thisAppProcess = Process.GetProcessesByName(app.ProcessName).First(); 
+                User32.SetWindowPlacement(thisAppProcess.MainWindowHandle, app.WindowPlacement);              
+            }          
         }
 
         static void Main(string[] args)
         {
-            /*
-            todo: args to support
-            -loadlayout                                
+            /*                                                
             -add support for multiple monitors (https://docs.microsoft.com/en-us/windows/desktop/gdi/positioning-objects-on-multiple-display-monitors)
-            
-             */
+            */
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
             {
                 if(o.Interactive) //only applies to savelayout

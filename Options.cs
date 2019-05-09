@@ -1,5 +1,5 @@
 using System; 
-using CommandLine; 
+using CommandLine; //https://github.com/commandlineparser/commandline
 
 namespace MyLayoutManager
 {
@@ -46,5 +46,7 @@ namespace MyLayoutManager
         Default = false, 
         HelpText = "Cycles through open windows and allows you to choose which windows to save to a layout.")]
         public bool Interactive {get; set;}
+
+       
     }
 }
