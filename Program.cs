@@ -114,7 +114,8 @@ namespace MyLayoutManager
 
         static void Main(string[] args)
         {
-            /*                                                
+            /*                  
+            note: dotnet publish --self-contained                              
             -add support for multiple monitors (https://docs.microsoft.com/en-us/windows/desktop/gdi/positioning-objects-on-multiple-display-monitors)
             */
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
