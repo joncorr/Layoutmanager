@@ -54,7 +54,7 @@ namespace MyLayoutManager
             {                   
                 if(openWindowHandleMap.ContainsKey(proc.MainWindowHandle))
                 {
-                    openWindowHandleMap[proc.MainWindowHandle].ProcessName = proc.ProcessName; 
+                    openWindowHandleMap[proc.MainWindowHandle].ProcessName = proc.ProcessName;                     
                     openWindowHandleMap[proc.MainWindowHandle].FileName = proc.MainModule.FileName; 
                     openWindowHandleMap[proc.MainWindowHandle].WindowTitle = proc.MainWindowTitle;                         
                 }
