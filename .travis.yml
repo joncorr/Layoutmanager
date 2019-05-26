@@ -1,11 +1,11 @@
 language: csharp
-mono: none
+mono: latest
 sudo: required
 dist: xenial
 dotnet: 2.2
 script: 
-  - dotnet restore csharp.csproj
-  - dotnet build csharp.csproj 
+  - dotnet restore LayoutManager.csproj
+  - dotnet build LayoutManager.csproj 
 global:
   - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
   - DOTNET_CLI_TELEMETRY_OPTOUT=1
